@@ -17,7 +17,9 @@ function Header() {
                     <span className="text-lg text-[#fff2fd] font-medium">Giao diện</span>
                     <div className=" absolute hidden top-[120%] right-[50%] translate-x-1/2 min-w-[150px] bg-slate-600 rounded-md group-hover:flex flex-col">
                         <div className="absolute w-full top-[-10px] h-3"></div>
-                        <div className="hover:bg-slate-300 pl-1 hover:rounded-t-md py-2 w-full h-full">Light Mode</div>
+                        <div className="hover:bg-slate-300 pl-1 hover:rounded-t-md py-2 w-full h-full">
+                            Chức năng này sẽ hoàn thiện trong tương lai ^^
+                        </div>
                         <div className="hover:bg-slate-300 pl-1 py-2 w-full h-full">Dark Mode</div>
                         <div className="hover:bg-slate-300 pl-1 hover:rounded-b-md py-2 w-full h-full">
                             Default Color

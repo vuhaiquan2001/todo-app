@@ -20,9 +20,11 @@ function Home() {
     };
 
     const handleEdit = (payload) => {
-        dispatch(action.editJob(payload));
-        dispatch(action.setJob(''));
-        setOpenedit(null);
+        if (jobinput.trim() !== '') {
+            dispatch(action.editJob(payload));
+            dispatch(action.setJob(''));
+            setOpenedit(null);
+        }
     };
 
     const handleClear = () => {
@@ -96,14 +98,14 @@ function Home() {
                                     }}
                                 />
                                 <button
-                                    className="ml-2 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
+                                    className="ml-2 p-1  h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
                                     onClick={() => handleEdit({ jobinput, index })}
                                 >
                                     Apply
                                 </button>
 
                                 <button
-                                    className="ml-2 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
+                                    className="ml-2 p-1  h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
                                     onClick={() => setOpenedit(null)}
                                 >
                                     cancel
@@ -114,7 +116,7 @@ function Home() {
                 </div>
                 <div className="min-h-[30px] mt-5">
                     <button
-                        className="ml-2 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
+                        className="ml-2 p-1 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
                         onClick={handleClear}
                     >
                         Clear job list
