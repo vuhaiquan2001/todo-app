@@ -1,9 +1,10 @@
-import { SET_JOB, ADD_JOB, DELETE_JOB, CLEAR_JOB, EDIT_JOB } from './constains';
+import { SET_JOB, ADD_JOB, DELETE_JOB, CLEAR_JOB, EDIT_JOB, SET_JOB_TYPE } from './constains';
 
 const initstate = {
     joblist: localStorage.getItem('items') === null ? [] : JSON.parse(localStorage.getItem('items')),
     jobinput: '',
     color: localStorage.getItem('themes') === null ? '' : JSON.parse(localStorage.getItem('themes')),
+    jobtype: '',
 };
 
 function reducer(state, action) {
@@ -13,7 +14,10 @@ function reducer(state, action) {
             newstate = { ...state, jobinput: action.payload };
             break;
         case ADD_JOB:
-            newstate = { ...state, joblist: [...state.joblist, action.payload] };
+            newstate = {
+                ...state,
+                joblist: [...state.joblist, { type: action.payload[0], job: action.payload[1] }],
+            };
             break;
         case DELETE_JOB:
             const newlist = [...state.joblist];
@@ -22,9 +26,12 @@ function reducer(state, action) {
             break;
         case EDIT_JOB:
             const list = [...state.joblist];
-            list.splice(action.payload.index, 1, action.payload.jobinput);
+            list.splice(action.payload.index, 1, { type: action.payload.arr[0], job: action.payload.arr[1] });
 
             newstate = { ...state, joblist: list };
+            break;
+        case SET_JOB_TYPE:
+            newstate = { ...state, jobtype: action.payload };
             break;
         case CLEAR_JOB:
             newstate = { ...state, joblist: [] };
