@@ -15,7 +15,7 @@ function Header() {
                 </Link>
                 <div className="flex">
                     <div className="flex relative group items-center justify-center min-w-[100px] rounded cursor-pointer mr-2 my-1 border-[1px] border-[#feaee3] hover:bg-pink-500 hover:text-[#fff]">
-                        <span className="text-lg px-1 text-[#fff2fd] font-medium">Job đã hoàn thành</span>
+                        <span className="text-lg px-1 text-[#fff2fd] font-medium">Đã hoàn thành</span>
                     </div>
                     <div className="flex relative group items-center justify-center min-w-[100px] rounded cursor-pointer mr-2 my-1 border-[1px] border-[#feaee3] hover:bg-pink-500 hover:text-[#fff]">
                         <img
