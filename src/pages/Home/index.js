@@ -9,6 +9,8 @@ function Home() {
     const [state, dispatch] = useStore();
     const [openedit, setOpenedit] = useState(null);
     const [deadline, setDeadline] = useState(null);
+    const [daydif, setDaydif] = useState(null);
+    const [erromsg, setErromsg] = useState(null);
     const [isdisabled, setDisabled] = useState(false);
     const { joblist, jobinput, jobtype, date } = state;
     const inputRef = useRef();
@@ -27,14 +29,16 @@ function Home() {
         console.log(updateinputRef.value);
         setOpenedit(index);
         setDisabled(true);
+        setErromsg(null);
     };
 
     const handleEdit = (payload) => {
-        if (jobinput.trim() !== '') {
+        if (jobinput.trim() !== '' && jobtype !== '' && daydif > 0) {
             setDisabled(false);
             dispatch(action.editJob(payload));
             dispatch(action.setJob(''));
             setOpenedit(null);
+            setErromsg(null);
         }
     };
 
@@ -42,17 +46,27 @@ function Home() {
         setOpenedit(null);
         setDisabled(false);
         dispatch(action.setJob(''));
+        setErromsg(null);
     };
 
     const handleClear = () => {
         dispatch(action.clearJob());
         localStorage.clear();
+        setErromsg(null);
     };
     const handleTimeInput = (value) => {
         const current = new Date();
-        if (moment(value).diff(current, 'days') > 0) {
-            dispatch(action.setDate(value));
+        setDaydif(moment(value).diff(current, 'days') + 1);
+        if (moment(value).diff(current, 'days') + 1 <= 0) {
+            setErromsg('Deadline phải lớn hơn ngày hiện tại ^^');
         }
+        dispatch(action.setDate(value));
+    };
+
+    const handleDeleteDeadline = (index) => {
+        setDeadline(null);
+        delete joblist[index].date;
+        setOpenedit(null);
     };
 
     useEffect(() => {
@@ -90,6 +104,7 @@ function Home() {
                     </button>
                 </div>
                 <div className="w-full flex-col items-center justify-center">
+                    <div className="mb-1 min-h-[25px]">{erromsg}</div>
                     {joblist.map((job, index) =>
                         openedit !== index ? (
                             <li
@@ -97,15 +112,16 @@ function Home() {
                                 key={index}
                             >
                                 <div className="flex flex-col flex-auto justify-start">
-                                    <span className="text-[#fff]  text-lg font-medium flex-auto text-start flex-wrap p-1 max-w-[300px] ">
+                                    <span className="text-[#90bbff]  text-lg font-medium flex-auto text-start flex-wrap p-1 ">
                                         {job.type}
                                     </span>
-                                    <span className="text-[#fff] text-start  flex-auto flex-wrap p-1 max-w-[300px] ">
+                                    <span className="text-[#fff] text-start  flex-auto flex-wrap p-1 ">
                                         Nội dung: {job.job}
                                     </span>
                                     {job.date ? (
-                                        <span className="text-[#fff] text-start  flex-auto flex-wrap p-1 max-w-[300px] ">
-                                            Deadline: {job.date}
+                                        <span className="text-[#fff] text-start  flex-auto flex-wrap p-1 ">
+                                            Deadline: {job.date} (Bạn còn:{' '}
+                                            {moment(job.date).diff(new Date(), 'days') + 1} ngày)
                                         </span>
                                     ) : (
                                         <React.Fragment />
@@ -166,7 +182,7 @@ function Home() {
                                             />
                                             <button
                                                 className="ml-2 p-1  h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
-                                                onClick={() => setDeadline(null)}
+                                                onClick={() => handleDeleteDeadline(index)}
                                             >
                                                 x
                                             </button>
