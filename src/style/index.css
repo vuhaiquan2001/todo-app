@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #222222;
+    --sub-color: #313236;
+}
+
+#root {
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    background-image: linear-gradient(to right, rgb(63, 63, 255), pink);
+}
