@@ -11,13 +11,17 @@ function Header() {
                         src="https://to-do-cdn.microsoft.com/static-assets/c87265a87f887380a04cf21925a56539b29364b51ae53e089c3ee2b2180148c6/icons/logo.png"
                         alt="logo"
                     />
-                    <span className="text-2xl text-slate-200 font-semibold">Quản lý công việc của bạn !</span>{' '}
+                    <span className=" hidden lg:block text-2xl text-slate-200 font-semibold">
+                        Quản lý công việc của bạn !
+                    </span>
                 </Link>
                 <div className="flex">
                     <div className="flex relative group items-center justify-center min-w-[100px] rounded cursor-pointer mr-2 my-1 border-[1px] border-[#feaee3] hover:bg-pink-500 hover:text-[#fff]">
-                        <span className="text-lg px-1 text-[#fff2fd] font-medium">Đã hoàn thành</span>
+                        <Link to="/compljob" className="text-lg px-1 text-[#fff2fd] font-medium">
+                            Đã hoàn thành
+                        </Link>
                     </div>
-                    <div className="flex relative group items-center justify-center min-w-[100px] rounded cursor-pointer mr-2 my-1 border-[1px] border-[#feaee3] hover:bg-pink-500 hover:text-[#fff]">
+                    <div className="hidden lg:flex relative group items-center justify-center min-w-[100px] rounded cursor-pointer mr-2 my-1 border-[1px] border-[#feaee3] hover:bg-pink-500 hover:text-[#fff]">
                         <img
                             className="w-[18px] mr-1"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/BYR_color_wheel.svg/2048px-BYR_color_wheel.svg.png"
@@ -28,13 +32,6 @@ function Header() {
                             <div className="absolute w-full top-[-10px] h-3"></div>
                             <div className="hover:bg-pink-300 pl-1 hover:rounded-t-md py-2 w-full h-full">
                                 Chức năng này sẽ hoàn thiện trong tương lai ^^
-                            </div>
-                            <div className="hover:bg-pink-300 pl-1 py-2 w-full h-full">Dark Mode</div>
-                            <div className="hover:bg-pink-300 pl-1 hover:rounded-b-md py-2 w-full h-full">
-                                Default Color
-                            </div>
-                            <div className="hover:bg-pink-300 pl-1 hover:rounded-b-md py-2 w-full h-full">
-                                Custom your Color
                             </div>
                         </div>
                     </div>

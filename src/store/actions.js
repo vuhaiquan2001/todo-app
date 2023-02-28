@@ -1,4 +1,15 @@
-import { SET_JOB, ADD_JOB, DELETE_JOB, EDIT_JOB, CLEAR_JOB, SET_THEMES, SET_DATE, SET_JOB_TYPE } from './constains';
+import {
+    SET_JOB,
+    ADD_JOB,
+    DELETE_JOB,
+    EDIT_JOB,
+    CLEAR_JOB,
+    SET_THEMES,
+    SET_DATE,
+    SET_JOB_TYPE,
+    COMPLETE_JOBS,
+    CLEAR_COMPL_JOB,
+} from './constains';
 
 export const setJob = (payload) => ({
     type: SET_JOB,
@@ -29,8 +40,17 @@ export const setDate = (payload) => ({
     payload,
 });
 
+export const setCompleteJobs = (payload) => ({
+    type: COMPLETE_JOBS,
+    payload,
+});
+
 export const clearJob = () => ({
     type: CLEAR_JOB,
+});
+
+export const clearComplJob = () => ({
+    type: CLEAR_COMPL_JOB,
 });
 
 export const setTheme = (payload) => ({

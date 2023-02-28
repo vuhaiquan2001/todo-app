@@ -1,11 +1,22 @@
-import { SET_JOB, ADD_JOB, DELETE_JOB, CLEAR_JOB, EDIT_JOB, SET_DATE, SET_JOB_TYPE } from './constains';
+import {
+    SET_JOB,
+    ADD_JOB,
+    DELETE_JOB,
+    CLEAR_JOB,
+    EDIT_JOB,
+    SET_DATE,
+    SET_JOB_TYPE,
+    COMPLETE_JOBS,
+    CLEAR_COMPL_JOB,
+} from './constains';
 
 const initstate = {
     joblist: localStorage.getItem('items') === null ? [] : JSON.parse(localStorage.getItem('items')),
     jobinput: '',
-    color: localStorage.getItem('themes') === null ? '' : JSON.parse(localStorage.getItem('themes')),
     jobtype: '',
     date: '',
+    completeJob: localStorage.getItem('completejobs') === null ? [] : JSON.parse(localStorage.getItem('completejobs')),
+    color: localStorage.getItem('themes') === null ? '' : JSON.parse(localStorage.getItem('themes')),
 };
 
 function reducer(state, action) {
@@ -41,8 +52,21 @@ function reducer(state, action) {
         case SET_DATE:
             newstate = { ...state, date: action.payload };
             break;
+        case COMPLETE_JOBS:
+            const currentlist = [...state.joblist];
+            const comple = currentlist.splice(action.payload, 1);
+            const compleDate = new Date();
+            newstate = {
+                ...state,
+                joblist: currentlist,
+                completeJob: [...state.completeJob, { ...comple, compleDate }],
+            };
+            break;
         case CLEAR_JOB:
             newstate = { ...state, joblist: [] };
+            break;
+        case CLEAR_COMPL_JOB:
+            newstate = { ...state, completeJob: [] };
             break;
         default:
             throw new Error('invalid action');

@@ -12,7 +12,7 @@ function Home() {
     const [daydif, setDaydif] = useState(null);
     const [erromsg, setErromsg] = useState(null);
     const [isdisabled, setDisabled] = useState(false);
-    const { joblist, jobinput, jobtype, date } = state;
+    const { joblist, jobinput, jobtype, date, completeJob } = state;
     const inputRef = useRef();
     const updateinputRef = useRef();
 
@@ -51,7 +51,7 @@ function Home() {
 
     const handleClear = () => {
         dispatch(action.clearJob());
-        localStorage.clear();
+        localStorage.removeItem('items');
         setErromsg(null);
     };
     const handleTimeInput = (value) => {
@@ -68,14 +68,20 @@ function Home() {
         delete joblist[index].date;
         setOpenedit(null);
     };
+    console.log(completeJob);
+
+    useEffect(() => {
+        localStorage.setItem('completejobs', JSON.stringify(completeJob));
+    }, [completeJob]);
 
     useEffect(() => {
         localStorage.setItem('items', JSON.stringify(joblist));
     }, [joblist]);
+
     return (
         <div className="w-full h-full flex justify-center items-center">
             <div className="w-full h-full  max-w-[1140px] flex flex-col items-center justify-between">
-                <div className="flex mb-2">
+                <div className="flex flex-col lg:flex-row mb-2">
                     <Creatable
                         isDisabled={isdisabled}
                         defaultValue=""
@@ -84,7 +90,7 @@ function Home() {
                         options={jobTypes}
                     />
                     <input
-                        className="border-[1px] rounded p-1 bg-pink-50 placeholder-pink-400 outline-pink-700"
+                        className="border-[1px] mt-2 lg:mt-0 rounded p-1 bg-pink-50 placeholder-pink-400 outline-pink-700"
                         ref={inputRef}
                         value={jobinput}
                         disabled={isdisabled}
@@ -97,7 +103,7 @@ function Home() {
                         }}
                     />
                     <button
-                        className="ml-2 px-1 rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
+                        className=" min-h-[35px] mt-2 lg:mt-0 lg:ml-2 px-1 rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
                         onClick={handleAdd}
                     >
                         Thêm mới
@@ -108,7 +114,7 @@ function Home() {
                     {joblist.map((job, index) =>
                         openedit !== index ? (
                             <li
-                                className="min-h-[34px] flex items-center justify-between border-l-[1px] border-b-[1px] list-none"
+                                className="min-h-[34px] flex flex-col lg:flex-row items-center justify-between lg:border-l-[1px] border-b-[1px] list-none"
                                 key={index}
                             >
                                 <div className="flex flex-col flex-auto justify-start">
@@ -127,7 +133,7 @@ function Home() {
                                         <React.Fragment />
                                     )}
                                 </div>
-                                <div className="">
+                                <div className="my-3 lg:my-0">
                                     <button
                                         className="ml-2 p-1 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
                                         onClick={() => handleOpenEdit(index)}
@@ -136,7 +142,7 @@ function Home() {
                                     </button>
                                     <button
                                         className="ml-2 p-1 h-full rounded min-w-[80px] border-[1px] font-medium text-[#fff] hover:bg-pink-500"
-                                        onClick={() => dispatch(action.deleteJob(index))}
+                                        onClick={() => dispatch(action.setCompleteJobs(index))}
                                     >
                                         Hoàn Thành
                                     </button>
@@ -150,7 +156,7 @@ function Home() {
                             </li>
                         ) : (
                             <div
-                                className="min-h-[34px] flex items-center justify-between border-b-[1px] list-none"
+                                className="min-h-[34px] flex flex-col lg:flex-row items-center justify-between border-b-[1px] list-none"
                                 key={index}
                             >
                                 <div className="flex flex-col">
